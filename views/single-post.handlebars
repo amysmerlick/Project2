@@ -1,0 +1,36 @@
+<!-- displaying articles -->
+<div class="post-wrapper">
+        <div class="date-wrapper">{{post.date_created}}</div>
+        <div class="title-wrapper">{{post.title}}</div>
+        <div class="content-wrapper">{{post.content}}</div>
+        <div class="user-wrapper">{{post.user.username}}</div>
+       
+    </div>
+
+<!-- displaying form and comments-->
+<!-- only display if logged in -->
+{{#if loggedIn}}
+<form class="comment-form" action="/api/comments" method="post">
+  <div>
+    <textarea class="ml-5" name="content"></textarea>
+    <input type="hidden" name="user-id" value="{{post.id}}" />
+  </div>
+
+  <div>
+    <button class="button" type="submit">add comment</button>
+  </div>
+  
+</form>
+{{/if}}
+
+
+{{#each post.comments as |comment|}}
+
+<div>{{comment.content}}</div>
+
+{{/each}}
+
+
+{{#if loggedIn}}
+<script src="/javascript/comment.js"></script>
+{{/if}}
